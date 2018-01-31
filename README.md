@@ -5,11 +5,12 @@ Explicit-Malloc is a library that allows explicit display of allocation of memor
 ## Getting Started
 
 go to the directory where you can see `Explicit-Malloc.zip`
+```
 run the following command
 unzip Explicit-Malloc.zip
 gcc -fPIC -shared -o explicit_malloc.so explicit_malloc.c -ldl
 LD_PRELOAD=(full path of explicit_malloc.so) (program where malloc will be replaced)  
-
+```
 ### Prerequisites 
 
 System: Linux
