@@ -1,88 +1,68 @@
-# Project Title
+# CounterBasicBlock
 
-One Paragraph of project description goes here
+CounterBasicBlock is an llvm pass that can be used to count the number of basic blocks in a program.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Prerequisites
-
-What things you need to install the software and how to install them
+```
+unzip Counterbb.zip
 
 ```
-Give examples
+Move the unzipped folder to the llvm source folder (where-your-llvm-live/lib/Transforms/)
 ```
-
-### Installing
-
-A step by step series of examples that tell you have to get a development env running
-
-Say what the step will be
-
+mv Counterbb where-your-llvm-live/lib/Transforms
 ```
-Give the example
+Modify the CMakeLists.txt in `Transforms` folder
 ```
-
-And repeat
-
+cd where-your-llvm-live/lib/Transforms
+vim CMakeLists.txt (you can modify it with any editor)
 ```
-until finished
+Add the following to the end of `CMakeLists.txt`.
 ```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
+add_subdirectory(Counterbb)
 ```
-Give an example
+Go to the folder where your llvm is built and then run `make` to build llvm again.
 ```
+cd where-llvm-is-built
+make
+```
+Go to the sub-folder to find the compiled pass file.
+```
+cd where-llvm-is-built/lib
+```
+On Linux, the generated file is a shared object file and the compiled file is
+```
+LLVMCounterbb.so
+```
+On Mac, the generated file is a dynamic linked library and the compiled file is
+```
+LLVMCounterbb.dylib
+```
+Either one can work with command `opt`
 
-### And coding style tests
-
-Explain what these tests test and why
+To count the how many basic blocks there are in program, the program has to be compiled in to .bc code
+Compile the target program with the following command.
 
 ```
-Give an example
+clang -o2 -emit-llvm target-program-name.c -c -o target-program-name.bc
 ```
+To run the LLVMCounterbb.so or LLVMCounterbb.dylib, run the following command.
+So on Linux, run:
+```
+opt -load LLVMCounterbb.so -counterbb < target-program-name.bc > /dev/null
+```
+On Mac, run:
+```
+opt -load LLVMCounter.dylib -counterbb < target-program-name.bc > /dev/null
+```
+Now, the number of basic blocks in the program should be displayed.
 
-## Deployment
+###Note
+The `opt` command comes with llvm, so make sure the llvm is correctly downloaded and installed.
+Also note that the running of the LLVMCounter.dylib or LLVMCounter.so is independent of the environment once it is created.
 
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+Rory(Qianyi Shu)
 
