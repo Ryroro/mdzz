@@ -12,10 +12,10 @@ gcc -fPIC -shared -o explicit_malloc.so explicit_malloc.c -ldl
 LD_PRELOAD=(full path of explicit_malloc.so) (program where malloc will be replaced)  
 ```
 ### Prerequisites 
-
+```
 System: Linux
 Compiler : gcc
-
+```
 ## Running the tests
 
 Explain how to run the automated tests for this system
