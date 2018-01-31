@@ -20,5 +20,9 @@ Compiler : gcc
 
 Explain how to run the automated tests for this system
 
+## Warning
+The library does not take account of the deallocation of memory.\n
+Only memory allocated by `malloc` will be displayed.
+
 ## Authors
   Rory(Qianyi Shu)
