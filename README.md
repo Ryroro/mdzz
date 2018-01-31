@@ -18,7 +18,9 @@ Compiler : gcc
 ```
 ## Running the tests
 
-Explain how to run the automated tests for this system
+```
+LD_PRELOAD=(full path of explicit_malloc.so) (full path of ./test)
+```
 
 ## Warning
 ```
